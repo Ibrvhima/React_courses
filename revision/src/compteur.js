@@ -1,18 +1,26 @@
 import { useState } from "react";
 
-export default function Counter() {
-  const [count, setIncremente] = useState(0);
+export default function LikeButton() {
+  // cration de la variable d'etats
+  const [count, setCount] = useState(0);
 
-  const handelClick = () => {
-    setIncremente(count + 1);
-    
+  //fonctionnalité de click
+  const handleClick = (e) => {
+    setCount(count + 1);
+  };
+  // Fonctionnalité qui reinitialise le compteur
+  const reinitialise = () => {
+    setCount(0);
   };
 
   return (
     <>
-      <h1>Conpteur de clics</h1>
-      <p>{count}</p>
-      <button onClick={handelClick}>+</button>
+      <p>
+        like<button onClick={handleClick}>❤</button>
+      </p>
+      <p>vous avez liker {count} fois</p>
+
+      <button onClick={reinitialise}>reinitialisez!!</button>
     </>
   );
 }
