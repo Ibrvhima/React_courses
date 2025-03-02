@@ -9,22 +9,21 @@ export default function App() {
   const [isLogginde, setisLoggined] = useState(false);
 
   //list autoamtique des taches
-  const todos = [
-    "se lever",
-    "se laver",
-    "cuisiner",
-    "manger",
-  ];
+  const todos = ["se lever", "se laver", "cuisiner", "manger"];
 
   //lis automatique des utilisateur
   const users = [
-    {id: "001", name_: "Diallo", phone: 622334455, email: "diallo@mail.com"},
-    {id: "002", name_: "Bah", phone: 622778855, email: "bah@mail.com"},
-    {id: "003", name_: "Camara", phone: 622223344, email: "camara@mail.com"},
-    {id: "004", name_: "Sylla", phone: 623669876, email: "sylla@mail.com"},
-    {id: "005", name_: "Bangoura", phone: 611227788, email: "bangoura@mail.com"},
-
-  ]
+    { id: "001", name_: "Diallo", phone: 622334455, email: "diallo@mail.com" },
+    { id: "002", name_: "Bah", phone: 622778855, email: "bah@mail.com" },
+    { id: "003", name_: "Camara", phone: 622223344, email: "camara@mail.com" },
+    { id: "004", name_: "Sylla", phone: 623669876, email: "sylla@mail.com" },
+    {
+      id: "005",
+      name_: "Bangoura",
+      phone: 611227788,
+      email: "bangoura@mail.com",
+    },
+  ];
 
   return (
     <>
@@ -42,9 +41,11 @@ export default function App() {
       </ul>
 
       <ul>
-        {users.map((users => (<li key={users}>
-          {users.id}--{users.name_}--{users.phone}--{users.email}
-        </li>)))}
+        {users.map((users) => (
+          <li key={users}>
+            {users.id}--{users.name_}--{users.phone}--{users.email}
+          </li>
+        ))}
       </ul>
     </>
   );
