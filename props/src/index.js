@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import Message from './App';
 // import App from './users';
-import Fruit from './produits';
+// import Fruit from './produits';
+import Vente from './articles';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -10,7 +11,8 @@ root.render(
     <Message nom = "Mamadou"/>
     
     {/* <App /> */}
-    <Fruit />
+    {/* <Fruit /> */}
+    <Vente/>
   </React.StrictMode>
 );
 
