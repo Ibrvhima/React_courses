@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import Menu from './cards';
+import Testimonials from './temoignage';
+// import Menu from './cards';
 // import Message from './App';
 // import Contenu from './boite';
 // import App from './users';
@@ -16,7 +17,8 @@ root.render(
     {/* <Fruit /> */}
     {/* <Vente/> */}
     {/* <Contenu /> */}
-    <Menu />
+    {/* <Menu /> */}
+    <Testimonials />
   </React.StrictMode>
 );
 
