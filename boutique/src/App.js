@@ -4,7 +4,6 @@ import Panier from "./panier";
 import Products from "./products";
 
 export default function Menu() {
-  // État initial des produits
   const initialProduits = [
     { id: 1, image: "/jilet1.jpeg", nom: "Gilet Scolaire", prix: 170, stock: 10 },
     { id: 2, image: "/jilet2.jpeg", nom: "Gilet Scolaire", prix: 150, stock: 15 },
@@ -22,6 +21,7 @@ export default function Menu() {
 
   const [produits, setProduits] = useState(initialProduits);
   const [panier, setPanier] = useState([]);
+  const [cartItemCount, setCartItemCount] = useState(0);
 
   // Ajouter un produit au panier
   const handleAddToPanier = (produit) => {
@@ -43,6 +43,9 @@ export default function Menu() {
     setProduits((prevProduits) =>
       prevProduits.map((p) => (p.id === produit.id ? { ...p, stock: p.stock - 1 } : p))
     );
+
+    // Mettre à jour le badge du panier
+    setCartItemCount((prevCount) => prevCount + 1);
   };
 
   // Supprimer un produit du panier
@@ -58,6 +61,11 @@ export default function Menu() {
         }
         return p;
       })
+    );
+
+    // Recalculer le nombre total d'articles dans le panier
+    setCartItemCount((prevCount) =>
+      panier.reduce((total, item) => (item.id !== produitId ? total + item.quantite : total), 0)
     );
   };
 
@@ -78,11 +86,17 @@ export default function Menu() {
           : p;
       })
     );
+
+    // Correction : recalcul du badge
+    setCartItemCount(
+      panier.reduce((total, item) => total + (item.id === produitId ? newQuantity : item.quantite), 0)
+    );
   };
 
   return (
     <>
-      <Header />
+      <Header cartItemCount={cartItemCount} />
+
       <div style={{ display: "flex" }}>
         <div
           style={{
