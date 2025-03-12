@@ -1,5 +1,5 @@
 import React from "react";
-import { FaTrash } from "react-icons/fa"; // Import de l'icône corbeille
+import { FaTrash } from "react-icons/fa"; 
 
 export default function Panier({ panier, onRemoveFromPanier, onUpdateQuantity }) {
   return (
@@ -18,7 +18,7 @@ export default function Panier({ panier, onRemoveFromPanier, onUpdateQuantity })
             width: "440px",
           }}
         >
-          {/* Sélectionner une quantité exacte selon le stock */}
+          
           <select
             value={item.quantite}
             onChange={(e) => onUpdateQuantity(item.id, parseInt(e.target.value, 10))}
@@ -38,7 +38,7 @@ export default function Panier({ panier, onRemoveFromPanier, onUpdateQuantity })
           <p>{item.nom}</p>
           <p>Prix: {item.prix * item.quantite}$</p>
           
-          {/* Bouton de suppression avec une icône */}
+         
           <button
             onClick={() => onRemoveFromPanier(item.id)}
             style={{
@@ -53,6 +53,10 @@ export default function Panier({ panier, onRemoveFromPanier, onUpdateQuantity })
           </button>
         </div>
       ))}
+      <div style={{marginTop:"2.8rem"}}>
+        <button style={{width:"100%",backgroundColor:"teal", color:'#fff', fontSize:"1rem",padding:"5px", border:"none", cursor:"pointer"}}>Procede to checkout</button>
+      </div>
     </div>
+    
   );
 }
