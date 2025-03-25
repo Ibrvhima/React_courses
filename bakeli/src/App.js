@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { COLORS } from "./constants/Colors";
+import { BiPencil, BiTrash } from "react-icons/bi";
 
 export default function App() {
   const [theme, setTheme] = useState({
@@ -7,17 +8,17 @@ export default function App() {
     backgroundColor: COLORS.gradientOne.color,
   });
 
-  const [notes, setnotes] = useState([])
-  const [noteList, setnoteList] = useState("")
+  const [notes, setnotes] = useState([]);
+  const [noteList, setnoteList] = useState("");
 
   const addNote = (e) => {
-    e.preventDefault()
-    
-    let newNote = {title: noteList, date: Date.now()}
-    setnotes([newNote, ...notes])
-    setnoteList("")
+    e.preventDefault();
+    if (!noteList.trim()) return;
 
-  }
+    let newNote = { title: noteList, date: Date.now() };
+    setnotes([newNote, ...notes]);
+    setnoteList("");
+  };
   return (
     <div style={{ ...theme, height: "100dvh" }}>
       <div className="container py-3">
@@ -78,7 +79,7 @@ export default function App() {
             ></span>
             <span
               onClick={() =>
-                setTheme({ 
+                setTheme({
                   backgroundImage: COLORS.gradientFour.image,
                   backgroundColor: COLORS.gradientFour.color,
                 })
@@ -136,13 +137,17 @@ export default function App() {
             <div className="d-flex gap-3">
               <input
                 value={noteList}
-                onChange={(e) =>{setnoteList(e.target.value)}}
+                onChange={(e) => {
+                  setnoteList(e.target.value);
+                }}
                 type="text"
                 className="form-control"
                 aria-label="note"
                 placeholder="add a note here..."
               />
-              <button className="btn btn-success px-4" onClick={addNote}>Add</button>
+              <button className="btn btn-success px-4" onClick={addNote}>
+                Add
+              </button>
             </div>
           </form>
         </div>
@@ -152,50 +157,65 @@ export default function App() {
           style={{ minHeight: "300px" }}
         >
           {/* Header NoteItems */}
-          <div className="d-flex border-bottom align-items-center justify-content-between py-2">
-            <div className="d-flex gap-2 align-items-center text-align-center">
-              <span className="fw-bold fs-6">Notes</span>
-              <span
-                style={{
-                  width: 25,
-                  height: 25,
-                  display: "inline-block",
-                  borderRadius: "100%",
-                  backgroundColor: "#dfdfdf",
-                  textAlign: "center",
-                  color: "red",
-                }}
-              >
-                2
-              </span>
-            </div>
-            <button className="btn bg-primary text-white">clear All</button>
+          <div
+            className="d-flex gap-1 border-bottom border-2"
+            style={{ borderColor: "#dfdfdf" }}
+          >
+            <p className="fw-bold">Note</p>
+            <span
+              style={{
+                width: 25,
+                height: 25,
+                borderRadius: "50%",
+                textAlign:"center",
+                color: "red",
+                backgroundColor: "#dfdfdf",
+              }}
+            >
+              5
+            </span>
           </div>
-          {/* Liste des notes */}
           <div className="mt-3 d-flex flex-wrap gap-2">
-         
-            {
-              notes.map((notes,index) => {
-                return <div 
+            {notes.map((note, index) => (
+              <div
                 key={index}
-                className="d-flex p-1 rounded border-5 border-start border-primary"
+                className="d-flex flex-column justify-content-between ps-2 pe-4 rounded border-5 border-start border-primary"
                 style={{
                   backgroundColor: "#dfdfdf",
-                  minWidth: "300px",
-                  height: "70px",
+                  width: "310px",
+                  height: "100px",
+                  padding: "10px",
+                  wordWrap: "break-word",
+                  overflowWrap: "break-word",
+                  whiteSpace: "normal",
+                  overflow: "hidden",
                 }}
               >
-                <div>
-                  <p className="fs-normal m-0">{notes.title}</p>
-                  <span className="fw-light" style={{ fontSize: "10" }}>
-                  Date : {new Date(notes.date).toLocaleString()}
-                  </span>
+                <div className="div d-flex justify-content-between gap-2">
+                  <div>
+                    <p className="fs-normal m-0">{note.title}</p>
+                    <span className="fw-light text-muted small">
+                      Date : {new Date(note.date).toLocaleString()}
+                    </span>
+                  </div>
+
+                  <div className="d-flex flex-column align-items-end gap-2">
+                    <button
+                      className="btn btn-sm btn-primary"
+                      style={{ fontSize: "0.8rem", padding: "0.2rem 0.5rem" }}
+                    >
+                      <BiPencil />
+                    </button>
+                    <button
+                      className="btn btn-sm btn-danger"
+                      style={{ fontSize: "0.8rem", padding: "0.2rem 0.5rem" }}
+                    >
+                      <BiTrash />
+                    </button>
+                  </div>
                 </div>
               </div>
-              })
-            }
-            
-            
+            ))}
           </div>
         </footer>
       </div>
