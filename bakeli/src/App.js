@@ -10,15 +10,46 @@ export default function App() {
 
   const [notes, setnotes] = useState([]);
   const [noteList, setnoteList] = useState("");
+  const [isUpdate, setisUpdate] = useState(false);
+  const [selectedNote, setselectedNote] = useState(null);
 
   const addNote = (e) => {
     e.preventDefault();
     if (!noteList.trim()) return;
 
-    let newNote = { title: noteList, date: Date.now() };
+    let newNote = {
+      id: Math.floor(Math.random() * 1000),
+      title: noteList,
+      date: Date.now(),
+    };
     setnotes([newNote, ...notes]);
     setnoteList("");
   };
+
+  const updateNote = (e) => {
+    e.preventDefault();
+
+    const notesCopy = [...notes];
+    const note = notes.find((note) => note.id === selectedNote.id);
+    const noteIndex = notes.findIndex((note) => note.id === selectedNote.id);
+
+    let noteUpdated = { ...note, title: noteList };
+    notesCopy[noteIndex] = noteUpdated;
+
+    setnotes(notesCopy);
+    setnoteList("");
+    setisUpdate(false);
+  };
+
+  const deleteNote = (id) =>{
+    const newNotes = notes.filter(note => note.id !== id)
+    setnotes(newNotes)
+  }
+
+  const clearNotes = () =>{
+    setnotes([])
+  }
+
   return (
     <div style={{ ...theme, height: "100dvh" }}>
       <div className="container py-3">
@@ -145,9 +176,15 @@ export default function App() {
                 aria-label="note"
                 placeholder="add a note here..."
               />
-              <button className="btn btn-success px-4" onClick={addNote}>
-                Add
-              </button>
+              {isUpdate ? (
+                <button className="btn btn-warning px-4" onClick={updateNote}>
+                  Update
+                </button>
+              ) : (
+                <button className="btn btn-success px-4" onClick={addNote}>
+                  Add
+                </button>
+              )}
             </div>
           </form>
         </div>
@@ -158,22 +195,25 @@ export default function App() {
         >
           {/* Header NoteItems */}
           <div
-            className="d-flex gap-1 border-bottom border-2"
+            className="d-flex justify-content-between  align-items-center border-bottom border-2"
             style={{ borderColor: "#dfdfdf" }}
           >
-            <p className="fw-bold">Note</p>
-            <span
-              style={{
-                width: 25,
-                height: 25,
-                borderRadius: "50%",
-                textAlign:"center",
-                color: "red",
-                backgroundColor: "#dfdfdf",
-              }}
-            >
-              5
-            </span>
+            <div className="d-flex gap-1">
+              <p className="fw-bold">Note</p>
+              <span
+                style={{
+                  width: 25,
+                  height: 25,
+                  borderRadius: "50%",
+                  textAlign: "center",
+                  color: "red",
+                  backgroundColor: "#dfdfdf",
+                }}
+              >
+              {notes.length}
+              </span>
+            </div>
+            <button className="btn btn-sm btn-primary" onClick={clearNotes}>Clear All</button>
           </div>
           <div className="mt-3 d-flex flex-wrap gap-2">
             {notes.map((note, index) => (
@@ -202,15 +242,21 @@ export default function App() {
                   <div className="d-flex flex-column align-items-end gap-2">
                     <button
                       className="btn btn-sm btn-primary"
-                      style={{ fontSize: "0.8rem", padding: "0.2rem 0.5rem" }}
+                      style={{ fontSize: "0.8rem" }}
                     >
-                      <BiPencil />
+                      <BiPencil
+                        onClick={() => {
+                          setnoteList(note.title);
+                          setisUpdate(true);
+                          setselectedNote(note);
+                        }}
+                      />
                     </button>
                     <button
                       className="btn btn-sm btn-danger"
-                      style={{ fontSize: "0.8rem", padding: "0.2rem 0.5rem" }}
+                      style={{ fontSize: "0.8rem" }}
                     >
-                      <BiTrash />
+                      <BiTrash onClick={() => deleteNote(note.id)}/>
                     </button>
                   </div>
                 </div>
