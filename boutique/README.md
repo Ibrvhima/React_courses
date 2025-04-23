@@ -14,7 +14,7 @@
 
 📸 Aperçu
 
-![Capture écran](public\FireShot.png) 
+![Aperçu de l'application](FireShot.png) 
 
 
  🛠️ Technologies utilisées
@@ -23,9 +23,8 @@
 - [Bootstrap 5]
 - [React Icons]
 
-## 📂 Structure du projet
+ 📂 Structure du projet
 
-```bash
 src/
 │
 ├── components/
