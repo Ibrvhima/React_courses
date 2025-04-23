@@ -92,17 +92,15 @@ export default function Menu() {
       <Header cartItemCount={cartItemCount} />
 
       <div className="container-fluid pt-5 mt-4">
-        <div className="row">
-          {/* Colonne Products */}
-          <div className="col-lg-18 col-md-8 col-sm-12">
-            <div className="row">
-              {produits.map((produit) => (
-                <div key={produit.id} className="col-12 col-sm-6 col-md-4 col-lg-4 mb-4 mt-10">
-                  <Products produit={produit} onAddToPanier={handleAddToPanier} />
-                </div>
-              ))}
-            </div>
-          </div>
+  <div className="row">
+    {/* Colonne Produits */}
+    <div className="col-lg-8 col-md-8 col-sm-12">
+      <div className="row">
+        {produits.map((produit) => (
+          <Products key={produit.id} produit={produit} onAddToPanier={handleAddToPanier} />
+        ))}
+      </div>
+    </div>
 
           {/* Colonne Panier */}
           <div className="col-lg-4 col-md-4 col-sm-12">
