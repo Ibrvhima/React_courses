@@ -2,6 +2,8 @@ import { useState } from "react";
 import Header from "./header";
 import Panier from "./panier";
 import Products from "./products";
+import './index.css';  
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function Menu() {
   const initialProduits = [
@@ -23,7 +25,6 @@ export default function Menu() {
   const [panier, setPanier] = useState([]);
   const [cartItemCount, setCartItemCount] = useState(0);
 
-  // Ajouter un produit au panier
   const handleAddToPanier = (produit) => {
     if (produit.stock <= 0) return;
 
@@ -39,20 +40,16 @@ export default function Menu() {
       }
     });
 
-    // Décrémenter le stock
     setProduits((prevProduits) =>
       prevProduits.map((p) => (p.id === produit.id ? { ...p, stock: p.stock - 1 } : p))
     );
 
-    // Mettre à jour le badge du panier
     setCartItemCount((prevCount) => prevCount + 1);
   };
 
-  // Supprimer un produit du panier
   const handleRemoveFromPanier = (produitId) => {
     setPanier((prevPanier) => prevPanier.filter((item) => item.id !== produitId));
 
-    // Restaurer le stock initial
     setProduits((prevProduits) =>
       prevProduits.map((p) => {
         const produitInitial = initialProduits.find((item) => item.id === p.id);
@@ -63,13 +60,11 @@ export default function Menu() {
       })
     );
 
-    // Recalculer le nombre total d'articles dans le panier
     setCartItemCount((prevCount) =>
       panier.reduce((total, item) => (item.id !== produitId ? total + item.quantite : total), 0)
     );
   };
 
-  // Mettre à jour la quantité d'un produit dans le panier
   const handleUpdateQuantity = (produitId, newQuantity) => {
     setPanier((prevPanier) =>
       prevPanier.map((item) =>
@@ -87,7 +82,6 @@ export default function Menu() {
       })
     );
 
-    // Correction : recalcul du badge
     setCartItemCount(
       panier.reduce((total, item) => total + (item.id === produitId ? newQuantity : item.quantite), 0)
     );
@@ -97,27 +91,24 @@ export default function Menu() {
     <>
       <Header cartItemCount={cartItemCount} />
 
-      <div style={{ display: "flex" }}>
-        <div
-          style={{
-            display: "flex",
-            gap: "2rem",
-            flexWrap: "wrap",
-            fontFamily: "sans-serif",
-            marginTop: "70px",
-            width: "800px",
-          }}
-        >
-          {produits.map((produit) => (
-            <Products key={produit.id} produit={produit} onAddToPanier={handleAddToPanier} />
-          ))}
-        </div>
+      <div className="container-fluid pt-5 mt-4">
+        <div className="row">
+          {/* Colonne Products */}
+          <div className="col-lg-18 col-md-8 col-sm-12">
+            <div className="row">
+              {produits.map((produit) => (
+                <div key={produit.id} className="col-12 col-sm-6 col-md-4 col-lg-4 mb-4 mt-10">
+                  <Products produit={produit} onAddToPanier={handleAddToPanier} />
+                </div>
+              ))}
+            </div>
+          </div>
 
-        <Panier
-          panier={panier}
-          onRemoveFromPanier={handleRemoveFromPanier}
-          onUpdateQuantity={handleUpdateQuantity}
-        />
+          {/* Colonne Panier */}
+          <div className="col-lg-4 col-md-4 col-sm-12">
+            <Panier panier={panier} onRemoveFromPanier={handleRemoveFromPanier} onUpdateQuantity={handleUpdateQuantity} />
+          </div>
+        </div>
       </div>
     </>
   );

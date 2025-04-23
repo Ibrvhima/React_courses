@@ -1,75 +1,48 @@
-import React from 'react';
-import { FaShoppingCart, FaUser } from 'react-icons/fa';
+import React from "react";
+import { FaShoppingCart, FaUser } from "react-icons/fa";
 
 export default function Header({ cartItemCount }) {
   return (
-    <div
-      style={{
-        backgroundColor: "teal",
-        color: "#fff",
-        position: "fixed",
-        width: "100%",
-        top: "0",
-        left: "0",
-        padding: "10px 20px",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-        zIndex: 1000,
-      }}
-    >
-      <div>
-        <p style={{ margin: 0, fontFamily: "sans-serif", fontSize: "2rem" }}>
-          <FaShoppingCart style={{ margin: "0 15px", cursor: "pointer", fontSize: "24px" }} />
-          UniGilet
-        </p>
-      </div>
-
-      <div style={{ flex: 0.93, display: "flex", justifyContent: "center" }}>
-        <input
-          type="text"
-          placeholder="Rechercher des gilets..."
-          style={{
-            padding: "10px",
-            width: "30%",
-            borderRadius: "20px",
-            border: "none",
-            outline: "none",
-            fontSize: "16px",
-          }}
-        />
-      </div>
-
-      <div style={{ display: "flex", alignItems: "center", position: "relative" }}>
-        {/* Icône panier avec badge */}
-        <div style={{ position: "relative", margin: "0 15px", cursor: "pointer" }}>
-          <FaShoppingCart style={{ fontSize: "24px" }} />
-          {cartItemCount > 0 && (
-            <span
-              style={{
-                position: "absolute",
-                top: "-8px",
-                right: "-8px",
-                backgroundColor: "red",
-                color: "white",
-                borderRadius: "50%",
-                width: "18px",
-                height: "18px",
-                fontSize: "12px",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                fontWeight: "bold",
-              }}
-            >
-              {cartItemCount}
-            </span>
-          )}
+    <nav className="navbar navbar-expand-lg navbar-dark bg-teal fixed-top shadow-sm py-2">
+      <div className="container-fluid d-flex justify-content-between align-items-center">
+        
+        <div className="d-flex align-items-center text-white">
+          <FaShoppingCart className="me-2" size={24} />
+          <span className="fs-4 fw-bold">UniGilet</span>
         </div>
 
-        <FaUser style={{ cursor: "pointer", fontSize: "24px" }} />
+        
+        <div className="d-none d-md-flex flex-grow-1 justify-content-center px-3">
+          <input
+            className="form-control rounded-pill w-75"
+            type="search"
+            placeholder="Rechercher des gilets..."
+            aria-label="Rechercher"
+          />
+        </div>
+
+        <div className="d-flex align-items-center position-relative text-white">
+          <div className="position-relative me-3 ">
+            <FaShoppingCart size={24} />
+            {cartItemCount > 0 && (
+              <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger ">
+                {cartItemCount}
+              </span>
+            )}
+          </div>
+          <FaUser size={24} />
+        </div>
       </div>
-    </div>
+
+      {/* Barre de recherche pour mobile (en dessous) */}
+      <div className="container-fluid d-md-none mt-2 px-3">
+        <input
+          className="form-control rounded-pill"
+          type="search"
+          placeholder="Rechercher des gilets..."
+          aria-label="Rechercher"
+        />
+      </div>
+    </nav>
   );
 }
