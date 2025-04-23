@@ -12,7 +12,7 @@ function TechnoListe({ techs = [] }) {
          ) : (
            <div className="row justify-content-center">
              {techs.map((tech, index) => (
-               <div key={index} className="col-lg-11 col-md-10 mb-5">
+               <div key={index} className="col-lg-10 col-md-10 mb-5">
                  <div className=" rounded-4 bg-light p-4 shadow-lg" style={{ borderTop: '4px solid #28a745' }}>
                    <h3 className="text-center text-success border-bottom pb-2 mb-3">
                      <i className="bi bi-patch-check-fill me-2 fs-3"></i>
