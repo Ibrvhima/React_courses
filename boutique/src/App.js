@@ -91,7 +91,7 @@ export default function Menu() {
     <>
       <Header cartItemCount={cartItemCount} />
 
-      <div className="container-fluid pt-5 mt-4">
+      <div className="container-fluid mt-4 mt-sm-3 mt-md-4 pt-3">
   <div className="row">
     {/* Colonne Produits */}
     <div className="col-lg-8 col-md-8 col-sm-12">
